@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Random Star</title>
+        <style type="text/css" media="all">
+            @media (max-width : 480px) {
+            body {
+                background-color: black;
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+            }
+            .container {
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                position: relative;
+            }
+            .star {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: white;
+                transition: 1s;
+                position: absolute;
+                margin-top: 49vh;
+                margin-left: 49vw;
+                filter: blur(.1px);
+            }
+            .form1 {
+                width: 60%;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                margin: -70vh auto;
+                position: relative;
+                background-color: rgba(255,255,255,.2);
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+            }
+            #username, #password {
+                width: 80%;
+                padding: 10px;
+                margin: auto;
+                margin-top: 20px;
+                border: .3px solid rgba(255,255,255,.2);
+                border-radius: 5px;
+                background-color: rgba(0,0,0,.2);
+                color: rgba(255,255,255,.8);
+            }
+            #username:focus{
+                outline: none;
+            }
+            #password:focus{
+                outline: none;
+            }
+            button {
+                width: 30%;
+                display: inline-block;
+                text-align: center;
+                margin: auto;
+                margin-top: 40px;
+                padding: 10px;
+                border: .2px solid rgba(255,255,255,.2);
+                border-radius: 10px;
+                background-color: rgba(0,0,0,.3);
+                font-weight: bold;
+                color: rgba(255,255,255,.7);
+                font-size: .7rem;
+            }
+            .view {
+                display: inline-block;
+                width: 6%;
+                padding: 2px;
+                border-radius: 5px;
+                color: rgba(255,255,255,.3);
+                margin-top: -14%;
+                background-color: rgba(0,0,0,.3);
+                text-align: center;
+            }
+          }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        </div>
+        <div class="form">
+           <form method="get" class="form1" accept-charset="utf-8">
+              <input type="text" id="username" placeholder="Username/No./Gmail"/> 
+              <input type="password" id="password" placeholder="Password"/><span class="view">v</span>
+              <button type="reset">LOG IN</button>
+           </form> 
+        </div>
+        <script type="text/javascript" charset="utf-8">
+const view = document.querySelector(".view");
+view.addEventListener("click", () => {
+    if (document.querySelector("#password").type === "password"){
+        document.querySelector("#password").type = "text";
+        view.style.backgroundColor = "rgba(255,255,255,.4)";
+    }else {
+        document.querySelector("#password").type = "password";
+        view.style.backgroundColor = "rgba(0,0,0,.3)";
+    }
+});
+setTimeout(() => {
+    start();
+},0);
+setInterval(() => {
+    start();
+},1000);
+function randomY(){
+    return Math.floor(Math.random()*180);
+}
+function randomX(){
+    return Math.floor(Math.random()*100);
+}
+function warna(){
+    let w = Math.floor(Math.random()*6);
+    switch(w){
+        case 0 : return "red";
+        case 1 : return "skyblue";
+        case 2 : return "yellow";
+        case 3 : return "orange";
+        case 4 : return "pink";
+        case 5 : return "purple";
+    }
+}
+function scale(){
+    return Math.random()*3;
+}
+function start(){
+    [...document.querySelectorAll(".star")].forEach(n => n.style.marginTop = `${randomY()}%`);
+    [...document.querySelectorAll(".star")].forEach(n => n.style.marginLeft = `${randomX()}%`);
+    [...document.querySelectorAll(".star")].forEach(n => {n.style.backgroundColor = `${warna()}`});
+    [...document.querySelectorAll(".star")].forEach(n => n.style.transform = `scale(${scale()})`);
+    for (i = [...document.querySelectorAll(".star")].length; i < 30; i++){
+        let div = document.createElement("div");
+        div.setAttribute("class", "star");
+        document.querySelector(".container").appendChild(div);
+    }
+}
+        </script>
+    </body>
+</html>
